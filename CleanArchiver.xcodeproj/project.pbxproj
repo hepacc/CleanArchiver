@@ -240,6 +240,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B5EA5CE408F15FD40064B72D /* Build configuration list for PBXNativeTarget "CleanArchiver" */;
 			buildPhases = (
+				CE0A030228B52C7D00A1AC9D /* ShellScript */,
 				8D1107270486CEB800E47090 /* Headers */,
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
@@ -320,6 +321,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "cd zip\n\n[ -e \"zip\" ] && exit 0\n\nfor arch in ${ARCHS}; do\n  build_dir=../build/${arch}\n  mkdir -p ${build_dir}\n\n  make -f unix/Makefile clean\n  make -f unix/Makefile macosx ARCH=${arch}\n  cp zip ${build_dir}\ndone\n\nlipo -create ../build/*/zip -output zip\ncp LICENSE License-zip.txt\n\necho \"Done\"\nexit 0\n";
+		};
+		CE0A030228B52C7D00A1AC9D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ncd Sparkle\nxcodebuild -scheme Sparkle -configuration Release CONFIGURATION_BUILD_DIR=./build clean build\ncp -a ./build/Sparkle.framework ../\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
